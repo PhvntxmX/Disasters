@@ -1,0 +1,2 @@
+# Disasters
+Magic plugin addon
