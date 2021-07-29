@@ -11,7 +11,7 @@ _If you experiencing any problems with the addon, you can create an [issue](http
 
 ## How to install
 1. Install the [Magic plugin](https://www.spigotmc.org/resources/magic.1056/).
-2. Enter the command `/mconfig example fetch https://github.com/PhvntxmX/Disasters/archive/refs/heads/main.zip`.
+2. Enter the command `/mconfig example fetch disasters`.
 3. Add the example by doing `/mconfig example add disasters`.
 4. Create a Disaster Generator by doing `/mblock add disaster`.
 
