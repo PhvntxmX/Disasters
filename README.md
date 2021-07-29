@@ -10,10 +10,10 @@ __*WIP*__ An example configuration for Magic plugin.
 _If you experiencing any problems with the addon, you can create an [issue](https://github.com/PhvntxmX/Disasters/issues/new/choose)._
 
 ## How to install
-1. Install the [Magic plugin](https://www.spigotmc.org/resources/magic.1056/)
-2. Enter the command `/mconfig example fetch disasters https://github.com/PhvntxmX/Disasters/archive/refs/heads/main.zip`
-3. Add the example by doing `/mconfig example add disasters`
-4. Create a Disaster Generator by doing `/mblock add disaster`
+1. Install the [Magic plugin](https://www.spigotmc.org/resources/magic.1056/).
+2. Enter the command `/mconfig example fetch disasters https://github.com/PhvntxmX/Disasters/archive/refs/heads/main.zip`.
+3. Add the example by doing `/mconfig example add disasters`.
+4. Create a Disaster Generator by doing `/mblock add disaster`.
 
 ## Description
 Every 15 seconds the generator will try to create a new disaster.\
