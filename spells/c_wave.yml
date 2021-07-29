@@ -1,0 +1,92 @@
+c_wave:
+  pvp_restricted: false
+  require_break: false
+  require_build: false
+  hidden: true
+  undoable: false
+  name: Wave
+  icon: light_blue_dye{18001}
+  icon_disabled: light_blue_dye{18002}
+  actions:
+    cast:
+          - class: Spread
+            radius: 16
+            actions:
+              - class: Cover
+                actions:
+                  - class: CheckBlock
+                    allowed: all_water
+                    biomes:
+                     - OCEAN
+                     - COLD_OCEAN
+                     - DEEP_COLD_OCEAN
+                     - DEEP_LUKEWARM_OCEAN
+                     - DEEP_OCEAN
+                     - DEEP_WARM_OCEAN
+                     - LUKEWARM_OCEAN
+                     - WARM_OCEAN
+                    actions:
+                      - class: ChangeContext
+                        swap_source_and_target: true
+                        source_direction_at_target: true
+                        actions:
+                          - class: ChangeContext
+                            source_pitch: 0
+                            actions:
+                              - class: CustomProjectile
+                                ignore_blocks: true
+                                ignore_targeting: true
+                                use_target_location: false
+                                target: none
+                                velocity: 5
+                                tick:
+                                - class: Asynchronous
+                                  actions:
+                                  - class: Cover
+                                    actions:
+                                    - class: Skip
+                                      skip: 10
+                                      actions:
+                                        - class: PlayEffects
+                                          effects: sound
+                                    - class: PlayEffects
+                                      effects: wave
+                                      ignore_result: true
+                                    - class: AreaOfEffect
+                                      target_source: true
+                                      actions:
+                                        - class: Velocity
+                                          direction: 0,-1,0
+                                        - class: Damage
+                              - class: Stop
+  effects:
+    sound:
+      - location: target
+        sound: entity_guardian_attack
+        sound_pitch: 1.4
+        sound_volume: 1.5
+    wave:
+      - location: target
+        orient: true
+        effectlib:
+          class: Wave
+          particle: water_splash
+          particles_back: 75
+          particles_front: 75
+          length_back: 3
+          length_front: 2
+          height: 5
+          duration: 100
+          width: 8
+          yaw_offset: 180
+  parameters:
+    bypass_undo: true
+    check_destructible: false
+    transparent: transparent_no_water
+    lifetime: 8 seconds
+    living_entity_speed: 0.35
+    radius: 5
+    damage: 2
+    y_radius: 3
+    target: self
+    target_self: true

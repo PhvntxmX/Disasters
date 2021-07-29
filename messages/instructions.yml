@@ -1,0 +1,17 @@
+examples:
+  disasters:
+    instructions: |-
+      &8| &3&nDISASTERS&r
+      &8|   &fThank you for installing Disasters example! &r
+      &8|
+      &8|   &fIf you want to add this example: &r
+      &8|   &7/mconfig example add disasters &r
+      &8|   &fIf you want to set this example as default example: &r
+      &8|   &7/mconfig example add disasters &r
+      &8|   &fIf you want to remove this example: &r
+      &8|   &7/mconfig example remove disasters &r
+      &8|
+      &8|   &fEnter this command to create Disaster Generator: &r
+      &8|   &7/mblock add disaster &r
+      &8|
+      &8|   &fMore info: &7https://github.com/PhvntxmX/Disasters

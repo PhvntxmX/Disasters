@@ -1,0 +1,291 @@
+c_meteor:
+  hidden: true
+  undoable: false
+  name: Meteor
+  icon: melon_seeds{18001}
+  icon_disabled: melon_seeds{18002}
+  pvp_restricted: false
+  require_break: false
+  require_build: false
+  actions:
+    cast:
+        - class: BossBar
+          bar_flags:
+            - darken_sky
+            - create_fog
+        - class: Spread
+          radius: 64
+          actions:
+            - class: ChangeContext
+              source_at_target: true
+              source_offset: 0,50,0
+              relative_source_offset: -15,0,0
+              actions:
+                - class: CustomProjectile
+                  tick_effects: big
+                  use_target_location: false
+                  projectile_effects: projectile_big
+                  hit_effects: hit_big
+                  spread: 0.1
+                  range: 1080
+                  gravity: 0.005
+                  tick:
+                  - class: Skip
+                    actions:
+                      - class: Multiply
+                        actions:
+                        - class: ChangeContext
+                          source_at_target: true
+                          actions:
+                            - class: Asynchronous
+                              actions:
+                              - class: CustomProjectile
+                                gravity: 0.1
+                                spread: 1.8
+                                range: 1080
+                                actions:
+                                - class: Sphere
+                                  radius: 3
+                                  y_size: 1
+                                  actions:
+                                  - class: ModifyBlock
+                                    direction: 0,1,0
+                                    falling: true
+                                    physics: true
+                                    physics_blocks: true
+                                - class: AreaOfEffect
+                                  radius: 4
+                                  y_radius: 4
+                                  actions:
+                                  - class: Ignite
+                                  - class: Velocity
+                                    push: 1
+                                    velocity_max_distance: 6
+                                  - class: Damage
+                                    damage_max_distance: 6
+                                - class: Random
+                                  actions:
+                                  - class: Brush
+                                    brushes:
+                                    brush: blackstone
+                                    actions:
+                                    - class: Cover
+                                      actions:
+                                      - class: ModifyBlock
+                                  - class: Brush
+                                    brush: basalt
+                                    actions:
+                                    - class: Cover
+                                      actions:
+                                      - class: ModifyBlock
+                                  - class: Brush
+                                    brush: deepslate
+                                    actions:
+                                    - class: Cover
+                                      actions:
+                                      - class: ModifyBlock
+                  actions:
+                    - class: Sphere
+                      radius: 24
+                      y_size: 4
+                      actions:
+                        - class: ModifyBlock
+                          direction: 0,1,0
+                          falling: true
+                          physics: true
+                          physics_blocks: true
+                    - class: AreaOfEffect
+                      radius: 32
+                      y_radius: 32
+                      actions:
+                        - class: Velocity
+                          push: 3
+                          velocity_max_distance: 24
+                        - class: Damage
+                          damage_multiplier: 5
+                          damage_max_distance: 48
+                    - class: Cover
+                      actions:
+                            - class: Sphere
+                              x_size: rand(0,6)
+                              y_size: rand(0,6)
+                              z_size: rand(0,6)
+                              actions:
+                                - class: Random
+                                  actions:
+                                    - class: Brush
+                                      weight: 15
+                                      brush: air
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 15
+                                      brush: blackstone
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 20
+                                      brush: basalt
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 15
+                                      brush: deepslate
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 25
+                                      brush: deepslate_iron_ore
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 1
+                                      brush: deepslate_diamond_ore
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 5
+                                      brush: obsidian
+                                      actions:
+                                      - class: ModifyBlock
+                                    - class: Brush
+                                      weight: 4
+                                      brush: crying_obsidian
+                                      actions:
+                                      - class: ModifyBlock
+  effects:
+        cast:
+        -  sound: ambient_nether_wastes_mood
+           sound_pitch: 1.2
+           sound_volume: 2
+           location: target
+        -  sound: entity_shulker_shoot
+           sound_pitch: 0.3
+           sound_volume: 2
+        -  class: EffectSingle
+           custom_sound: magic.burn
+           location: both
+        -  sound: entity_lightning_bolt_thunder
+           sound_pitch: 0.6
+           sound_volume: 1.8
+        projectile:
+        - location: origin
+          effectlib:
+            class: Sphere
+            duration: $lifetime
+            radius: 0.1
+            particle: lava
+            particles: 8
+        projectile_big:
+        - location: origin
+          effectlib:
+            class: Sphere
+            duration: $lifetime
+            radius: 3
+            particle: lava
+            particles: 20
+            particle_count: 3
+            particle_offset_x: 0.5
+            particle_offset_y: 0.5
+            particle_offset_z: 0.5
+        big:
+        - particle: campfire_signal_smoke
+          location: target
+          particle_count: 5
+          particle_data: 0.006
+          particle_offset_x: 0.5
+          particle_offset_y: 0.5
+          particle_offset_z: 0.5
+        - particle: smoke_large
+          location: target
+          particle_count: 15
+          particle_offset_x: 3
+          particle_offset_y: 3
+          particle_offset_z: 3
+        tick:
+        - particle: campfire_cosy_smoke
+          location: target
+          particle_count: 1
+          particle_offset_x: 0.1
+          particle_offset_y: 0.1
+          particle_offset_z: 0.1
+        - particle: smoke_large
+          location: target
+          particle_count: 1
+          particle_offset_x: .7
+          particle_offset_y: .7
+          particle_offset_z: .7
+        hit_big:
+        - location: target
+          sound: entity_generic_explode
+          sound_pitch: 0.3
+          sound_volume: 2.0
+          particle: explosion_huge
+          particle_count: 3
+          particle_offset_x: 2.5
+          particle_offset_y: 2.5
+          particle_offset_z: 2.5
+        - location: target
+          sound: entity_firework_rocket_large_blast
+          sound_pitch: 0.7
+          sound_volume: 2.0
+          effectlib:
+            class: Modified
+            duration: 400
+            iterations: 8
+            parameters:
+              radius: 3 + 10*(t/i)
+            effect:
+              class: Sphere
+              particle: explosion_normal
+              particles: 25
+              particle_data: 0.1
+              particle_count: 2
+              particle_offset_x: 1.5
+              particle_offset_y: 1.5
+              particle_offset_z: 1.5
+        hit:
+        - location: target
+          sound: entity_generic_explode
+          sound_pitch: 0.6
+          sound_volume: 1.5
+          particle: explosion_large
+          particle_count: 3
+          particle_offset_x: 2.5
+          particle_offset_y: 2.5
+          particle_offset_z: 2.5
+        - location: target
+          sound: entity_firework_rocket_large_blast
+          sound_pitch: 1.0
+          sound_volume: 1.5
+          effectlib:
+            class: Modified
+            duration: 400
+            iterations: 8
+            parameters:
+              radius: 5*(t/i)
+            effect:
+              class: Sphere
+              particle: explosion_normal
+              particles: 5
+              particle_data: 0.1
+              particle_count: 2
+              particle_offset_x: 1.5
+              particle_offset_y: 1.5
+              particle_offset_z: 1.5
+  parameters:
+    falling_probability: 0.2
+    bypass_undo: true
+    multiply: rand(1,3)
+    velocity: 18
+    target: other
+    target_type: LivingEntity
+    target_self: true
+    speed: 0.75
+    skip: 24
+    duration: 5 seconds
+    indestructible: all_water
+    check_destructible: false
+    check_indestructible: true
+    damage: 6
+    lifetime: 60 seconds

@@ -1,0 +1,101 @@
+c_tornado:
+  hidden: true
+  undoable: false
+  pvp_restricted: false
+  require_break: false
+  require_build: false
+  name: Tornado
+  icon: hopper{18001}
+  icon_disabled: hopper{18002}
+  cancel_effects: true
+  actions:
+    cast:
+          - class: Spread
+            radius: 64
+            actions:
+              - class: Cover
+                actions:
+                  - class: ChangeContext
+                    swap_source_and_target: true
+                    source_direction_at_target: true
+                    actions:
+                      - class: Equation
+                        use_target_location: false
+                        orient: true
+                        reorient: true
+                        x_equation: t
+                        y_equation: 0
+                        z_equation: sin(t/10)*5
+                        actions:
+                          - class: Cover
+                            actions:
+                              - class: Asynchronous
+                                actions:
+                                  - class: PlayEffects
+                                    effects: tornado
+                                    ignore_result: true
+                                  - class: ChangeContext
+                                    target_offset: 0,15,0
+                                    actions:
+                                    - class: AreaOfEffect
+                                      radius: 20
+                                      actions:
+                                        - class: Velocity
+                                          push: -1
+                                          additive: true
+                                        - class: Skip
+                                          skip: 25
+                                          actions:
+                                            - class: PlayEffects
+                                              effects: sound
+                                    - class: Sphere
+                                      y_size: 12
+                                      x_size: 10
+                                      z_size: 10
+                                      probability: 0.15
+                                      actions:
+                                        - class: ModifyBlock
+                                          falling: true
+                                          falling_probability: 1.0
+                                    - class: AreaOfEffect
+                                      actions:
+                                      - class: Velocity
+                                        direction: 0,0.5,0
+                                        additive: true
+                              - class: Delay
+                                delay: 75
+  effects:
+    sound:
+      - location: target
+        sound: item_elytra_flying
+        sound_volume: 2.0
+        sound_pitch: 1.2
+    tornado:
+      - location: target
+        effectlib:
+          class: Tornado
+          tornado_particle: sweep_attack
+          cloud_particle: explosion_large
+          particle_offset_x: 0.75
+          particle_offset_y: 0.75
+          particle_offset_z: 0.75
+          circle_particles: 8
+          tornado_height: 40
+          cloud_size: 3
+          cloud_particles: 2
+          show_cloud: true
+          circle_height: 2
+          max_tornado_radius: 3.5
+          duration: 25
+  parameters:
+    bypass_undo: true
+    iterations: rand(5,15)*100
+    brush: air
+    check_destructible: false
+    transparent: transparent_no_water
+    lifetime: rand(8,32) seconds
+    living_entity_speed: 1.5
+    radius: 5
+    y_radius: 25
+    target: self
+    target_self: true

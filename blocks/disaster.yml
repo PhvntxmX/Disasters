@@ -1,0 +1,6 @@
+disaster:
+  name: Disaster Generator
+  interval: 15000
+  always_active: true
+  cast:
+    spells: disaster

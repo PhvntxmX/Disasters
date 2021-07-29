@@ -1,0 +1,63 @@
+disaster:
+  hidden: true
+  undoable: false
+  actions:
+    cast:
+      - class: AllEntities
+        actions:
+          - class: Parallel
+            actions:
+              - class: Probability
+                probability: 0.005
+                actions:
+                  - class: Cast
+                    spell: c_meteor
+              - class: CheckRequirements
+                requirements:
+                  - weather: thunder
+                actions:
+                - class: Probability
+                  probability: 0.05
+                  actions:
+                  - class: Cast
+                    spell: c_tornado
+              - class: CheckBlock
+                biomes:
+                - DESERT
+                - DESERT_HILLS
+                - DESERT_LAKES
+                - ERODED_BADLANDS
+                - BADLANDS
+                - BADLANDS_PLATEAU
+                - MODIFIED_BADLANDS_PLATEAU
+                - MODIFIED_WOODED_BADLANDS_PLATEAU
+                - WOODED_BADLANDS_PLATEAU
+                actions:
+                - class: Probability
+                  probability: 0.6
+                  actions:
+                  - class: Cast
+                    spell: c_sandstorm
+              - class: CheckBlock
+                biomes:
+                 - BEACH
+                 - OCEAN
+                 - COLD_OCEAN
+                 - DEEP_COLD_OCEAN
+                 - DEEP_LUKEWARM_OCEAN
+                 - DEEP_OCEAN
+                 - DEEP_WARM_OCEAN
+                 - LUKEWARM_OCEAN
+                 - WARM_OCEAN
+                actions:
+                  - class: Probability
+                    probability: 0.8
+                    actions:
+                    - class: Cast
+                      spell: c_wave
+  parameters:
+    target: self
+    check_destructible: false
+    target_self: true
+    target_type: Player
+    target_all_worlds: false
