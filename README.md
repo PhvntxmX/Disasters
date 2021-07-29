@@ -2,8 +2,8 @@
 __*WIP*__ An example configuration for Magic plugin.
 
 ## Requirements
-1. Minecraft server version 1.17 and above
-2. [Magic plugin](https://www.spigotmc.org/resources/magic.1056/)
+1. Minecraft server version 1.17 or above.
+2. [Magic plugin](https://www.spigotmc.org/resources/magic.1056/) 9.4.1 or above.
 
 ## WARNING
 **This example may not work well on weak servers/computers.**\
