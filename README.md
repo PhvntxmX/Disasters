@@ -18,6 +18,7 @@ _If you experiencing any problems with the addon, you can create an [issue](http
 ## Description
 Every 15 seconds the generator will try to create a new disaster.\
 Disasters are only created if there is players nearby.\
+All damage caused by disasters is permanent.\
 If all conditions are met, you (or other player) will see one or more of these disasters:
 * ### Waves
     Waves will appear if you swimming or standing near to the ocean.\
