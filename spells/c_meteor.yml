@@ -13,8 +13,11 @@ c_meteor:
           bar_flags:
             - darken_sky
             - create_fog
-        - class: Spread
-          radius: 64
+        - class: ChangeContext
+          target_offset:
+            x: rand(-32,32)
+            y: 0
+            z: rand(-32,32)
           actions:
             - class: ChangeContext
               source_at_target: true
@@ -108,7 +111,7 @@ c_meteor:
                       actions:
                             - class: Sphere
                               x_size: rand(0,6)
-                              y_size: rand(0,6)
+                              y_size: rand(2,8)
                               z_size: rand(0,6)
                               actions:
                                 - class: Random
