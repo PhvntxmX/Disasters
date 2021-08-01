@@ -7,262 +7,93 @@ c_sandstorm:
   name: Sandstorm
   icon: sand{18001}
   icon_disabled: sand{18002}
+  variables:
+    count: 0
   actions:
     cast:
-          - class: Spread
-            radius: 48
+      - class: ChangeContext
+        target_offset:
+          x: rand(-32,32)
+          y: 0
+          z: rand(-32,32)
+        actions:
+          - class: ChangeContext
+            swap_source_and_target: true
+            source_direction_at_target: true
             actions:
-              - class: Cover
+              - class: ChangeContext
+                source_pitch: 0
+                source_offset: 0,64,0
                 actions:
-                  - class: CheckBlock
-                    allowed: all_sand
-                    biomes:
-                    - DESERT
-                    - DESERT_HILLS
-                    - DESERT_LAKES
-                    - ERODED_BADLANDS
-                    - BADLANDS
-                    - BADLANDS_PLATEAU
-                    - MODIFIED_BADLANDS_PLATEAU
-                    - MODIFIED_WOODED_BADLANDS_PLATEAU
-                    - WOODED_BADLANDS_PLATEAU
+                  - class: Repeat
                     actions:
-                      - class: ChangeContext
-                        swap_source_and_target: true
-                        source_direction_at_target: true
+                      - class: Parallel
                         actions:
                           - class: ChangeContext
-                            source_offset: 0,2,0
-                            source_pitch: 0
+                            relative_source_offset:
+                              x: 0
+                              y: 0
+                              z: -15 + count
                             actions:
-                              - class: CustomProjectile
-                                ignore_blocks: false
-                                ignore_targeting: true
-                                use_target_location: false
-                                target: none
-                                velocity: rand(5,10)
-                                tick:
-                                  - class: Skip
-                                    skip: 8
-                                    actions:
-                                      - class: PlaySound
-                                        sound: item_elytra_flying
-                                        sound_pitch: 1.2
-                                        sound_volume: 1.5
-                                  - class: Parallel
-                                    actions:
-                                    - class: Cover
-                                      actions:
-                                      - class: PlayEffects
-                                        effects: wind
-                                        ignore_result: true
-                                      - class: AreaOfEffect
-                                        target_source: true
-                                        actions:
-                                          - class: PotionEffect
-                                            duration: 2 seconds
-                                            add_effects:
-                                              blindness: 0
-                                          - class: Velocity
-                                            push: 1
-                                            additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,5
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,-5
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,10
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,-10
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,15
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,-15
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,20
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,-20
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,25
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                                    - class: ChangeContext
-                                      relative_target_offset: 0,0,-25
-                                      actions:
-                                      - class: Cover
-                                        actions:
-                                        - class: PlayEffects
-                                          effects: wind
-                                          ignore_result: true
-                                        - class: AreaOfEffect
-                                          target_source: true
-                                          actions:
-                                            - class: PotionEffect
-                                              duration: 2 seconds
-                                              add_effects:
-                                                blindness: 0
-                                            - class: Velocity
-                                              push: 1
-                                              additive: true
-                              - class: Stop
+                              - class: Asynchronous
+                                actions:
+                                  - class: CustomProjectile
+                                    use_target_location: false
+                                    target: none
+                                    ignore_targeting: true
+                                    ignore_blocks: true
+                                    tick:
+                                          - class: Probability
+                                            probability: 1-found
+                                            actions:
+                                              - class: BlockSearch
+                                                direction: down
+                                                actions:
+                                                  - class: ModifyVariable
+                                                    value: 1
+                                                    variable: found
+                                                  - class: PlayEffects
+                                                    ignore_result: true
+                                                  - class: AreaOfEffect
+                                                    actions:
+                                                      - class: Velocity
+                                                      - class: PotionEffect
+                                          - class: ModifyVariable
+                                            value: 0
+                                            variable: found
+                          - class: ModifyVariable
+                            value: count + 5
+                            variable: count
+                  - class: ModifyVariable
+                    value: 0
+                    variable: count
   effects:
     wind:
       - location: target
-        particle: redstone
-        color: "#fadeaa"
-        particle_count: 15
-        particle_offset_x: 5
-        particle_offset_y: 5
-        particle_offset_z: 5
-        particle_size: 2.0
+        particle_count: 25
+        particle_size: 5.0
+        particle_data: 1.0
+        particle: falling_dust
+        particle_offset_x: 5.0
+        particle_offset_y: 5.0
+        particle_offset_z: 5.0
   parameters:
+    add_effects:
+      blindness: 0
+    duration: 2000
+    push: 1
+    sound: item_elytra_flying
+    sound_pitch: 1.2
+    sound_volume: 0.1
+    effects: wind
+    repeat: rand(5,15)
+    velocity: 8
     bypass_undo: true
     check_destructible: false
-    transparent: transparent_no_water
-    lifetime: 10 seconds
-    living_entity_speed: 0.1
+    transparent: all_sand
+    lifetime: 10000
+    living_entity_speed: 0.05
+    additive: true
     radius: 5
     y_radius: 5
     target: self

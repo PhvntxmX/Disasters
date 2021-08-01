@@ -8,68 +8,80 @@ c_tornado:
   icon: hopper{18001}
   icon_disabled: hopper{18002}
   cancel_effects: true
+  variables:
+    found: 0
   actions:
     cast:
-          - class: Spread
-            radius: 64
+      - class: ChangeContext
+        target_offset:
+          x: rand(-64,64)
+          y: 0
+          z: rand(-64,64)
+        actions:
+          - class: ChangeContext
+            swap_source_and_target: true
+            source_direction_at_target: true
             actions:
-              - class: Cover
+              - class: ChangeContext
+                source_offset: 0,64,0
+                source_pitch: 0
                 actions:
-                  - class: ChangeContext
-                    swap_source_and_target: true
-                    source_direction_at_target: true
-                    actions:
-                      - class: Equation
-                        use_target_location: false
-                        orient: true
-                        reorient: true
-                        x_equation: t
-                        y_equation: 0
-                        z_equation: sin(t/10)*5
+                  - class: CustomProjectile
+                    use_target_location: false
+                    target: none
+                    ignore_targeting: true
+                    ignore_blocks: true
+                    velocity_transform:
+                      orient: true
+                      x: 5
+                      y: 0
+                      z: 5*sin(t/4)
+                    tick:
+                      - class: Asynchronous
                         actions:
-                          - class: Cover
+                          - class: Probability
+                            probability: 1-found
                             actions:
-                              - class: Asynchronous
+                              - class: BlockSearch
+                                direction: down
                                 actions:
+                                  - class: ModifyVariable
+                                    value: 1
+                                    variable: found
                                   - class: PlayEffects
-                                    effects: tornado
                                     ignore_result: true
                                   - class: ChangeContext
                                     target_offset: 0,15,0
                                     actions:
-                                    - class: AreaOfEffect
-                                      radius: 20
-                                      actions:
-                                        - class: Velocity
-                                          push: -1
-                                          additive: true
-                                        - class: Skip
-                                          skip: 25
-                                          actions:
-                                            - class: PlayEffects
-                                              effects: sound
-                                    - class: Sphere
-                                      y_size: 12
-                                      x_size: 10
-                                      z_size: 10
-                                      probability: 0.15
-                                      actions:
-                                        - class: ModifyBlock
-                                          falling: true
-                                          falling_probability: 1.0
-                                    - class: AreaOfEffect
-                                      actions:
-                                      - class: Velocity
-                                        direction: 0,0.5,0
-                                        additive: true
-                              - class: Delay
-                                delay: 75
+                                      - class: Parallel
+                                        actions:
+                                          - class: Sphere
+                                            actions:
+                                              - class: ModifyBlock
+                                                direction: 0,1,0
+                                          - class: AreaOfEffect
+                                            radius: 25
+                                            actions:
+                                              - class: Skip
+                                                skip: 8
+                                                actions:
+                                                  - class: PlaySound
+                                              - class: Velocity
+                                                push: -1
+                                          - class: AreaOfEffect
+                                            radius: 5
+                                            actions:
+                                              - class: Velocity
+                                                direction: 0,-1,0
+                          - class: ModifyVariable
+                            value: 0
+                            variable: found
   effects:
-    sound:
+    tick:
       - location: target
-        sound: item_elytra_flying
-        sound_volume: 2.0
-        sound_pitch: 1.2
+        particle: redstone
+        color: "#8b0000"
+        particle_count: 25
     tornado:
       - location: target
         effectlib:
@@ -88,14 +100,23 @@ c_tornado:
           max_tornado_radius: 3.5
           duration: 25
   parameters:
+    probability: 0.02
+    falling: true
+    falling_probability: 1.0
+    additive: true
+    effects: tornado
+    sound: item_elytra_flying
+    sound_volume: 0.1
+    sound_pitch: 1.2
     bypass_undo: true
-    iterations: rand(5,15)*100
     brush: air
+    lifetime: rand(15,60) seconds
+    transparent: solid,liquid
     check_destructible: false
-    transparent: transparent_no_water
-    lifetime: rand(8,32) seconds
     living_entity_speed: 1.5
-    radius: 5
+    y_size: 12
+    x_size: 10
+    z_size: 10
     y_radius: 25
     target: self
     target_self: true

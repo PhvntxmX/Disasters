@@ -7,86 +7,91 @@ c_wave:
   name: Wave
   icon: light_blue_dye{18001}
   icon_disabled: light_blue_dye{18002}
+  variables:
+    found: 0
   actions:
     cast:
-          - class: Spread
-            radius: 16
+      - class: ChangeContext
+        target_offset:
+          x: rand(-32,32)
+          y: 0
+          z: rand(-32,32)
+        actions:
+          - class: ChangeContext
+            swap_source_and_target: true
+            source_direction_at_target: true
             actions:
-              - class: Cover
+              - class: ChangeContext
+                source_pitch: 0
+                source_offset: 0,64,0
                 actions:
-                  - class: CheckBlock
-                    allowed: all_water
-                    biomes:
-                     - OCEAN
-                     - COLD_OCEAN
-                     - DEEP_COLD_OCEAN
-                     - DEEP_LUKEWARM_OCEAN
-                     - DEEP_OCEAN
-                     - DEEP_WARM_OCEAN
-                     - LUKEWARM_OCEAN
-                     - WARM_OCEAN
-                    actions:
-                      - class: ChangeContext
-                        swap_source_and_target: true
-                        source_direction_at_target: true
+                  - class: CustomProjectile
+                    use_target_location: false
+                    target: none
+                    ignore_targeting: true
+                    ignore_blocks: true
+                    hit_on_miss: true
+                    tick:
+                      - class: Asynchronous
                         actions:
-                          - class: ChangeContext
-                            source_pitch: 0
+                          - class: Probability
+                            probability: 1-found
                             actions:
-                              - class: CustomProjectile
-                                ignore_blocks: true
-                                ignore_targeting: true
-                                use_target_location: false
-                                target: none
-                                velocity: 5
-                                tick:
-                                - class: Asynchronous
-                                  actions:
-                                  - class: Cover
+                              - class: BlockSearch
+                                direction: down
+                                actions:
+                                  - class: ModifyVariable
+                                    value: 1
+                                    variable: found
+                                  - class: PlayEffects
+                                    ignore_result: true
+                                  - class: AreaOfEffect
                                     actions:
-                                    - class: Skip
-                                      skip: 10
-                                      actions:
-                                        - class: PlayEffects
-                                          effects: sound
-                                    - class: PlayEffects
-                                      effects: wave
-                                      ignore_result: true
-                                    - class: AreaOfEffect
-                                      target_source: true
-                                      actions:
-                                        - class: Velocity
-                                          direction: 0,-1,0
-                                        - class: Damage
-                              - class: Stop
+                                      - class: Velocity
+                                        direction: 0,-1,0
+                                      - class: Damage
+                          - class: ModifyVariable
+                            value: 0
+                            variable: found
   effects:
-    sound:
-      - location: target
-        sound: entity_guardian_attack
-        sound_pitch: 1.4
-        sound_volume: 1.5
     wave:
       - location: target
         orient: true
         effectlib:
           class: Wave
           particle: water_splash
-          particles_back: 75
-          particles_front: 75
+          duration: 0
+          particles_back: 25
+          particles_front: 25
           length_back: 3
+          height: 3.5
           length_front: 2
-          height: 5
-          duration: 100
           width: 8
           yaw_offset: 180
   parameters:
+    transparent: all_water
+    add_effects:
+      blindness: 0
+    biomes:
+      - OCEAN
+      - COLD_OCEAN
+      - DEEP_COLD_OCEAN
+      - DEEP_LUKEWARM_OCEAN
+      - DEEP_OCEAN
+      - DEEP_WARM_OCEAN
+      - LUKEWARM_OCEAN
+      - WARM_OCEAN
+    sound: weather_rain
+    sound_pitch: 1.2
+    sound_volume: 0.1
+    effects: wave
+    repeat: 5
+    velocity: 8
     bypass_undo: true
-    check_destructible: false
-    transparent: transparent_no_water
-    lifetime: 8 seconds
-    living_entity_speed: 0.35
+    lifetime: 10000
+    living_entity_speed: 0.025
+    additive: true
     radius: 5
-    damage: 2
-    y_radius: 3
+    y_radius: 5
     target: self
     target_self: true
