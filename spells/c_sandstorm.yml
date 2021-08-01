@@ -9,6 +9,7 @@ c_sandstorm:
   icon_disabled: sand{18002}
   variables:
     count: 0
+    found: 0
   actions:
     cast:
       - class: ChangeContext
