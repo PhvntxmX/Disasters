@@ -88,15 +88,17 @@ c_meteor:
                                       actions:
                                       - class: ModifyBlock
                   actions:
-                    - class: Sphere
-                      radius: 24
-                      y_size: 4
+                    - class: ChangeContext
+                      target_offset: 0,20,0
                       actions:
-                        - class: ModifyBlock
-                          direction: 0,1,0
-                          falling: true
-                          physics: true
-                          physics_blocks: true
+                        - class: Sphere
+                          radius: 24
+                          actions:
+                            - class: ModifyBlock
+                              direction: 0,1,0
+                              falling: true
+                              physics: true
+                              physics_blocks: true
                     - class: AreaOfEffect
                       radius: 32
                       y_radius: 32
@@ -288,7 +290,7 @@ c_meteor:
     speed: 0.75
     skip: 24
     duration: 5 seconds
-    indestructible: all_water
+    indestructible: all_water,indestructible
     check_destructible: false
     check_indestructible: true
     damage: 6
