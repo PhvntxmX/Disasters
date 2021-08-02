@@ -277,6 +277,7 @@ c_meteor:
               particle_offset_y: 1.5
               particle_offset_z: 1.5
   parameters:
+    brush: air
     falling_probability: 0.2
     bypass_undo: true
     multiply: rand(1,3)
